@@ -1,3 +1,5 @@
+import random
+
 class Node:
     ...
 
@@ -5,12 +7,20 @@ def hillClimbing():
     ...
 
 def createBoard(n : int) -> list[int]: 
-    board = []
-    # make a 1d array and then randomly place a queen (1 value) in each column 
+    # initalize board with 0's 
+    board = [0] * n**2
+    for column in range(n):
+        row = random.randint(0, n-1)
+        index = (row * n) + column
+        board[index] = 1
+    for i in range(len(board)):
+        print(board[i], end=" ")
+        if (i + 1) % n == 0:
+            print()
     return board
 
 def solveNQueens(n : int):
-    ...
+    createBoard(n)
 
 def main():
     print("n Queens problem")
