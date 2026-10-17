@@ -1,9 +1,14 @@
 import random
 
 class Node:
-    ...
+    def __init__(self, state, heuristic):
+        self.state = state
+        self.heuristic = heuristic
 
 def hillClimbing():
+    ...
+
+def heuristic ():
     ...
 
 def createBoard(n : int) -> list[int]: 
