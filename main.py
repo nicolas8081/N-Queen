@@ -52,7 +52,56 @@ def createBoard(n: int) -> list[int]:
             print()
     return board
 
-def solveNQueens(n : int):
+def conflicts(columnIndex: int, board: list[int]) -> int:
+    lowestHeuristic = float("inf") #infinity as lowest so the first row will be less automatically
+    bestRow = 0
+
+    for row in range(len(board)):
+        newBoard = board.copy()
+        newBoard[columnIndex] = row
+        h = heuristic(newBoard)
+
+        if h < lowestHeuristic:
+            lowestHeuristic = h
+            bestRow = row
+
+    return bestRow
+
+def chooseLowest(board: list[int]):
+    lowestHeuristic = float("inf")
+    for queen in range(len(board)):
+            for otherQueen in range(queen + 1,len(board)):
+                if queen != otherQueen:
+                    # checks if queens are on the same row
+                    if board[queen] == board[otherQueen]:
+                        heuristicValue += 1
+                    # check if they are on the same diagonal 
+                    else:
+                        column = abs(queen - otherQueen)
+                        row = abs(board[queen] - board[otherQueen])
+                        if row == column:
+                            heuristicValue += 1
+
+
+def minConflicts(board : list[int], max_steps = 1000):
+    currentNode = Node(board,heuristic(board))
+    for i in range(max_steps):
+        if currentNode.heuristic == 0:
+            return currentNode.board
+        else:
+            var = random.randint(0, len(board) - 1)
+            value = conflicts(var, board)
+            currentNode.board[var] = value
+    return None
+
+def solveNQueensMinConflicts(n : int):
+    # should return true or false
+    board = createBoard(n)
+    minConflicts(board, 1000)
+    ...
+
+def solveNQueensHillClimbing(n : int):
+    # should return true or false
     board = createBoard(n)
     heuristicValue = heuristic(board)
     print(f"This is the heuristic: {heuristicValue}")
@@ -65,5 +114,5 @@ def solveNQueens(n : int):
 def main():
     print("n Queens problem")
     n = int(input("n : "))
-    solveNQueens(n)
+    solveNQueensHillClimbing(n)
 main()
