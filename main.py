@@ -128,7 +128,9 @@ def minConflicts(board: list[int], max_steps: int = 1000):
 def solveNQueens(n: int):
     board = createBoard(n)
     heuristicValue = heuristic(board)
-    print(f"Starting board {board} and it's heuristic value = {heuristicValue}")
+    print("Starting board")
+    printBoard(board)
+    print(f"it's heuristic value = {heuristicValue}")
     currentNode = Node(board,heuristicValue)
     hillClimbBoard, hillClimbSteps = hillClimbing(currentNode)
     hillClimbHeuristic = heuristic(hillClimbBoard)
@@ -136,15 +138,19 @@ def solveNQueens(n: int):
 
     if hillClimbHeuristic == 0:
         print(f"Solved in {hillClimbSteps} steps and this is the final board {hillClimbBoard}")
+        printBoard(hillClimbBoard)
     else:
         print(f"The problem got stuck after {hillClimbSteps} steps with heuristic value = {hillClimbHeuristic} and this is the final board {hillClimbBoard}")
+        printBoard(hillClimbBoard)
 
     minConflictsBoard, minConflictsSteps = minConflicts(board)
     print("Min Conflicts")
     if minConflictsBoard is None:
         print(f"The problem failed after {minConflictsSteps} steps")
+        printBoard(minConflictsBoard)
     else:
         print(f"Solved in {minConflictsSteps} steps and this is the final board {minConflictsBoard}")
+        printBoard(minConflictsBoard)
 
 def solveNQueensForTest(n : int):
     board = createBoard(n)
